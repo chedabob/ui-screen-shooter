@@ -110,6 +110,9 @@ function _xcode {
       OBJROOT=$build_dir \
       SYMROOT=$build_dir \
       ONLY_ACTIVE_ARCH=NO \
+-arch i386 \
+VALID_ARCHS="armv6 armv7 i386" \
+
     "$@"
     xcodebuild -sdk "iphonesimulator$ios_version" \
       CONFIGURATION_BUILD_DIR="$build_dir/build" \
@@ -119,12 +122,16 @@ function _xcode {
       OBJROOT=$build_dir \
       SYMROOT=$build_dir \
       ONLY_ACTIVE_ARCH=NO \
+-arch i386 \
+VALID_ARCHS="armv6 armv7 i386" \
     "$@"
     cp -r "$build_dir/build/app.app" "$build_dir"
   else
     xcodebuild -sdk "iphonesimulator$ios_version" \
       CONFIGURATION_BUILD_DIR=$build_dir \
       PRODUCT_NAME=app \
+    -arch i386 \
+    VALID_ARCHS="armv6 armv7 i386" \
     "$@"
   fi
 }
@@ -165,7 +172,7 @@ function _run_automation {
     -AppleLocale "$language" \
     "$@"
 
-  find $trace_results_dir/Run\ 1/ -name *landscape*png -type f -exec sips -r -90 \{\} \;
+# find $trace_results_dir/Run\ 1/ -name *landscape*png -type f -exec sips -r -90 \{\} \;
 }
 
 function _copy_screenshots {
